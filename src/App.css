@@ -10,8 +10,7 @@
   height: 100vh;
   margin: 0 auto;
   text-align: center;
-  --color-bg: #2c2c32;
-  --color-active: #0f7dc6;
+  
 }
 
 body {
@@ -41,10 +40,6 @@ body {
   color: white;
 }
 
-.header__menu-link:hover {
-  color: var(--color-active);
-}
-
 h1 {
   text-align: center;
   margin-top: 0;
@@ -62,7 +57,6 @@ footer {
 
 .active {
   color: var(--color-active);
-  cursor: default;
 }
 
 .active:hover {
@@ -71,6 +65,7 @@ footer {
 
 .table {
   width: 100%;
+  cursor: default;
 }
 
 .table__head::after {
@@ -83,4 +78,22 @@ footer {
 
 .table__data {
   width: 25%;
+}
+
+.tabs {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 3rem;
+  list-style: none;
+}
+
+.tabs__item {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid white;
+}
+
+.tabs__item--active {
+  color: var(--color-active);
+  border-color: var(--color-active);
 }

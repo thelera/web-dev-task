@@ -10,7 +10,7 @@ interface TabsProps {
 const Tabs = ({ activeTab, children, onClick }: TabsProps) => {
   return (
     <>
-      <ul>
+      <ul className="tabs">
         {Object.values(QuotesTab).map((tab) => (
           <li>
             <a

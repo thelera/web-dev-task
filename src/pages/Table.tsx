@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { TickerType } from "../types/TickerType";
 import { TableRow } from "./TableRow";
 
@@ -6,6 +7,9 @@ interface TableProps {
 }
 
 const Table = ({ data }: TableProps) => {
+  const handleClick = useCallback((name: string) => {
+  }, []);
+
   return (
     <>
       <table className="table">
@@ -22,10 +26,12 @@ const Table = ({ data }: TableProps) => {
           {data &&
             Object.keys(data).map((key) => (
               <TableRow
+                key={key}
                 name={key}
                 last={data[key].last}
                 highestBid={data[key].highestBid}
                 percentChange={data[key].percentChange}
+                onClick={handleClick}
               />
             ))}
         </tbody>
