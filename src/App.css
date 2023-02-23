@@ -68,3 +68,19 @@ footer {
 .active:hover {
   text-decoration: none;
 }
+
+.table {
+  width: 100%;
+}
+
+.table__head::after {
+  content: "";
+  display: block;
+  height: 1em;
+  width: 100%;
+  background: white;
+}
+
+.table__data {
+  width: 25%;
+}
