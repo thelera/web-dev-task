@@ -17,11 +17,12 @@ const Tabs = ({ activeTab, children, onClick }: TabsProps) => {
               className={`tabs__item ${
                 tab === activeTab ? "tabs__item--active" : ""
               }`}
+              href=""
               onClick={(evt) => {
                 evt.preventDefault();
 
-                if(tab !== activeTab) {
-                  onClick(tab)
+                if (tab !== activeTab) {
+                  onClick(tab);
                 }
               }}
             >

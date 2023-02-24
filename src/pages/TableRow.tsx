@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from "react";
+import { KeyboardEvent, memo, useEffect, useRef } from "react";
 import { PickedTickerType } from "../types/PickedTickerType";
 
 type TableRowProps = {
@@ -8,17 +8,22 @@ type TableRowProps = {
 
 const TableRow = memo(
   ({ name, last, highestBid, percentChange, onClick }: TableRowProps) => {
-    const prevPropsRef = useRef<PickedTickerType>({ last, highestBid, percentChange });
+    const prevPropsRef = useRef<PickedTickerType>({
+      last,
+      highestBid,
+      percentChange,
+    });
 
     useEffect(() => {
       prevPropsRef.current = { last, highestBid, percentChange };
-
-      return () => {
-      };
     }, [name]);
 
     function handleClick() {
       onClick(name);
+    }
+
+    function handleKeyUp(evt: KeyboardEvent<HTMLTableRowElement>) {
+      if (evt.key === "Enter") onClick(name);
     }
 
     function getClass(name: keyof PickedTickerType, bid: string) {
@@ -32,15 +37,25 @@ const TableRow = memo(
     }
 
     return (
-      <tr className="table__row" key={name} onClick={handleClick}>
+      <tr
+        className="table__row"
+        key={name}
+        onClick={handleClick}
+        onKeyUp={handleKeyUp}
+        tabIndex={0}
+      >
         <td className="table__data">{name}</td>
-        <td
-          className={`table__data ${getClass('last', last)}`}
-        >
+        <td className={`table__data ${getClass("last", last)}`}>
           {parseFloat(last)}
         </td>
-        <td className={`table__data ${getClass('highestBid', highestBid)}`}>{parseFloat(highestBid)}</td>
-        <td className={`table__data ${getClass('percentChange', percentChange)}`}>{parseFloat(percentChange)}</td>
+        <td className={`table__data ${getClass("highestBid", highestBid)}`}>
+          {parseFloat(highestBid)}
+        </td>
+        <td
+          className={`table__data ${getClass("percentChange", percentChange)}`}
+        >
+          {parseFloat(percentChange)}
+        </td>
       </tr>
     );
   }
