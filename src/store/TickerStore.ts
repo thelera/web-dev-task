@@ -32,6 +32,7 @@ class TickerStore {
 
       this.loadingState = LoadingStateEnum.success;
     } catch (err) {
+      console.error(err);
       this.loadingState = LoadingStateEnum.fail;
     }
   }
@@ -48,8 +49,7 @@ class TickerStore {
     return Object.keys(this.ticker)
       .slice(0, this.middle)
       .reduce((acc, curr) => {
-        // @ts-ignore
-        acc[curr] = this.ticker?.[curr];
+        acc[curr] = this.ticker?.[curr] as TickerType;
 
         return acc;
       }, {} as Record<string, TickerType>);
@@ -61,8 +61,7 @@ class TickerStore {
     return Object.keys(this.ticker)
       .slice(this.middle)
       .reduce((acc, curr) => {
-        // @ts-ignore
-        acc[curr] = this.ticker?.[curr];
+        acc[curr] = this.ticker?.[curr]  as TickerType;
 
         return acc;
       }, {} as Record<string, TickerType>);
