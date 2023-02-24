@@ -4,10 +4,13 @@ import { TableRow } from "./TableRow";
 
 interface TableProps {
   data: Record<string, TickerType> | null;
+  onRowClick: (name: string) => void;
 }
 
-const Table = ({ data }: TableProps) => {
+const Table = ({ data, onRowClick }: TableProps) => {
+
   const handleClick = useCallback((name: string) => {
+    onRowClick(name);
   }, []);
 
   return (
