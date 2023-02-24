@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tabs } from "../components/Tabs";
 import { QuotesTab } from "../types/QuotesTab";
-import { Table } from "./Table";
+import { Table } from "../components/Table";
 import { observer } from "mobx-react-lite";
 import { tickerStore } from "../store/TickerStore";
 import { TickerModal } from "../components/TickerModal";

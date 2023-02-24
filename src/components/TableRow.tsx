@@ -45,12 +45,15 @@ const TableRow = memo(
         tabIndex={0}
       >
         <td className="table__data">{name}</td>
+
         <td className={`table__data ${getClass("last", last)}`}>
           {parseFloat(last)}
         </td>
+
         <td className={`table__data ${getClass("highestBid", highestBid)}`}>
           {parseFloat(highestBid)}
         </td>
+
         <td
           className={`table__data ${getClass("percentChange", percentChange)}`}
         >
