@@ -1,4 +1,7 @@
+import { observer } from "mobx-react-lite";
 import { useCallback } from "react";
+import { tickerStore } from "../store/TickerStore";
+import { LoadingStateEnum } from "../types/LoadingStateEnum";
 import { TickerType } from "../types/TickerType";
 import { TableRow } from "./TableRow";
 
@@ -7,8 +10,7 @@ interface TableProps {
   onRowClick: (name: string) => void;
 }
 
-const Table = ({ data, onRowClick }: TableProps) => {
-
+const Table = observer(({ data, onRowClick }: TableProps) => {
   const handleClick = useCallback((name: string) => {
     onRowClick(name);
   }, []);
@@ -37,10 +39,17 @@ const Table = ({ data, onRowClick }: TableProps) => {
                 onClick={handleClick}
               />
             ))}
+          {tickerStore.loadingState === LoadingStateEnum.processing && (
+            <tr>
+              <td className="loading" colSpan={4}>
+                Loading...
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>
   );
-};
+});
 
 export { Table };
