@@ -2,6 +2,10 @@ import { tickerStore } from "../store/TickerStore";
 import { TickerType } from "../types/TickerType";
 import Modal from "react-modal";
 
+Modal.setAppElement('#root');
+
+const CLOSE_TEXT = "Закрыть";
+
 interface TickerModalProps {
   tickerName: string;
   onClose: () => void;
@@ -23,7 +27,7 @@ const TickerModal = ({ tickerName, onClose }: TickerModalProps) => {
           Object.keys(tickerStore.ticker[tickerName]).map((key) => (
             <tr>
               <td>{key}</td>
-              <td>
+              <td className="modal__table-data">
                 {tickerStore.ticker?.[tickerName][key as keyof TickerType]}
               </td>
             </tr>
@@ -31,7 +35,7 @@ const TickerModal = ({ tickerName, onClose }: TickerModalProps) => {
       </table>
 
       <button className="modal__close" onClick={onClose}>
-        Закрыть
+        {CLOSE_TEXT}
       </button>
     </Modal>
   );
