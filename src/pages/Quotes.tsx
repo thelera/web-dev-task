@@ -6,6 +6,8 @@ import { observer } from "mobx-react-lite";
 import { tickerStore } from "../store/TickerStore";
 import { TickerModal } from "../components/TickerModal";
 
+const DELAY = 5000;
+
 const Quotes = observer(() => {
   const [activeTab, setActiveTab] = useState<QuotesTab>(QuotesTab.QUOTESA);
   const [tickerToShow, setTickerToShow] = useState<string>("");
@@ -18,7 +20,7 @@ const Quotes = observer(() => {
     if (!tickerToShow) {
       const timer = setInterval(() => {
         tickerStore.loadTickers();
-      }, 5000);
+      }, DELAY);
 
       return () => {
         clearInterval(timer);
