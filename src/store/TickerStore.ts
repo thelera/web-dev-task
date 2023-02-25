@@ -1,4 +1,10 @@
-import { makeObservable, observable, action, computed } from "mobx";
+import {
+  makeObservable,
+  observable,
+  action,
+  computed,
+  runInAction,
+} from "mobx";
 import { LoadingStateEnum } from "../types/LoadingStateEnum";
 import { TickerType } from "../types/TickerType";
 
@@ -20,20 +26,23 @@ class TickerStore {
 
   async loadTickers() {
     try {
-      this.loadingState = LoadingStateEnum.processing;
+      runInAction(() => {
+        this.loadingState = LoadingStateEnum.processing;
+      });
 
-      const response = await fetch(
-        "/api/public?command=returnTicker"
-      );
+      const response = await fetch("/api/public?command=returnTicker");
 
       const ticker = await response.json();
 
-      this.ticker = ticker;
-
-      this.loadingState = LoadingStateEnum.success;
+      runInAction(() => {
+        this.ticker = ticker;
+        this.loadingState = LoadingStateEnum.success;
+      });
     } catch (err) {
       console.error(err);
-      this.loadingState = LoadingStateEnum.fail;
+      runInAction(() => {
+        this.loadingState = LoadingStateEnum.fail;
+      });
     }
   }
 
@@ -44,24 +53,20 @@ class TickerStore {
   }
 
   get quotesA(): Record<string, TickerType> | null {
-    if (!this.ticker || !this.middle) return null;
-
-    return Object.keys(this.ticker)
-      .slice(0, this.middle)
-      .reduce((acc, curr) => {
-        acc[curr] = this.ticker?.[curr] as TickerType;
-
-        return acc;
-      }, {} as Record<string, TickerType>);
+    return this.middle ? this.getQuotes(0, this.middle) : null;
   }
 
   get quotesB(): Record<string, TickerType> | null {
-    if (!this.ticker || !this.middle) return null;
+    return this.middle ? this.getQuotes(this.middle) : null;
+  }
+
+  getQuotes(start: number, end?: number): Record<string, TickerType> | null {
+    if (!this.ticker) return null;
 
     return Object.keys(this.ticker)
-      .slice(this.middle)
+      .slice(start, end)
       .reduce((acc, curr) => {
-        acc[curr] = this.ticker?.[curr]  as TickerType;
+        acc[curr] = this.ticker?.[curr] as TickerType;
 
         return acc;
       }, {} as Record<string, TickerType>);
