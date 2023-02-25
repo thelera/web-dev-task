@@ -30,7 +30,7 @@ const TickerModal = ({ tickerName, onClose }: TickerModalProps) => {
           ))}
       </table>
 
-      <button className="modal__close" onClick={onClose} tabIndex={0}>
+      <button className="modal__close" onClick={onClose}>
         Закрыть
       </button>
     </Modal>

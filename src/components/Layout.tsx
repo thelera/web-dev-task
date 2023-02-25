@@ -18,7 +18,7 @@ const Layout = () => {
         <Outlet />
       </main>
 
-      <footer>2023</footer>
+      <footer className="footer">2023</footer>
     </>
   );
 };

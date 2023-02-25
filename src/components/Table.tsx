@@ -5,7 +5,7 @@ import { LoadingStateEnum } from "../types/LoadingStateEnum";
 import { TickerType } from "../types/TickerType";
 import { TableRow } from "./TableRow";
 
-const ERROR_TEXT = 'Произошла ошибка. Повторите запрос познее.';
+const ERROR_TEXT = "Произошла ошибка. Повторите запрос познее.";
 
 interface TableProps {
   data: Record<string, TickerType> | null;
@@ -41,16 +41,14 @@ const Table = observer(({ data, onRowClick }: TableProps) => {
                 onClick={handleClick}
               />
             ))}
-
-          {tickerStore.loadingState === LoadingStateEnum.processing && (
-            <tr>
-              <td className="loading" colSpan={4}>
-                Loading...
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
+
+      {tickerStore.loadingState === LoadingStateEnum.processing && (
+        <div className="loading">
+          Loading...
+        </div>
+      )}
 
       {tickerStore.loadingState === LoadingStateEnum.fail && (
         <div className="error">{ERROR_TEXT}</div>
